@@ -10,6 +10,30 @@ void reverseStr(string& str)
         swap(str[i], str[n - i - 1]);
 }
 
+string deletingSymb(string& str)
+{
+    const string puncts = " [];',./{}:\"?><`~!-_";
+    string output;
+
+    for (const auto& ch : str)
+    {
+        bool found = false;
+
+        for (const auto& p : puncts)
+        {
+            if (ch == p)
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+            output += ch;
+    }
+    return output;
+}
+
 int main() {
 
     string str;
@@ -27,6 +51,7 @@ int main() {
         //присвоєння даних
         infile >> str;
         reverseStr(str);
+        str = deletingSymb(str);
 
         if(!infile.eof())
         {
@@ -38,8 +63,9 @@ int main() {
                 return -1;
             }
 
-            outfile << str << endl;
+            outfile << str << " ";
             outfile.close();
+            cout << endl;
 
         }
 
